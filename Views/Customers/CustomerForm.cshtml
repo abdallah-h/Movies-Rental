@@ -1,0 +1,38 @@
+﻿@model Movies_Rental.ViewModels.CustomerFormViewModel
+
+@{
+    ViewBag.Title = "New";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>New Customer</h2>
+
+@using (Html.BeginForm("Save", "Customers", FormMethod.Post, new { @class = "Form-Group" }))
+{
+    @Html.ValidationSummary(true, "Please fix the following errors.")
+    <div class="form-group">
+        @Html.LabelFor(n => n.Customer.Name, "Name")
+        @Html.TextBoxFor(n => n.Customer.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(n => n.Customer.Name)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(n => n.Customer.Birthdate, "Birthdate")
+        @Html.TextBoxFor(n => n.Customer.Birthdate, "{0:d MMM yyyy}", new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(n => n.Customer.MembershipTypeId, "Membership Type")
+        @Html.DropDownListFor(n => n.Customer.MembershipTypeId, new SelectList(Model.MembershipTypes, "Id", "Name"), "Choose Membership Type", new { @class = "form-control" })
+        @Html.ValidationMessageFor(n => n.Customer.MembershipTypeId)
+    </div>
+    <div class="form-check">
+        @Html.CheckBoxFor(n => n.Customer.IsSubscribed, new { @class = "form-check-input" })
+        @Html.LabelFor(n => n.Customer.IsSubscribed, "Subscribed to Newsletter?")
+    </div>
+    if (Model.Customer != null)
+    {
+        @Html.HiddenFor(n => n.Customer.Id);
+    }
+    @Html.AntiForgeryToken()
+    <input class="btn btn-primary" type="submit" value="Save" />
+}
+

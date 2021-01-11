@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace Movies_Rental.Models
+namespace Movies_Rental.Dtos
 {
-    public class Movie
+    public class MovieDto
     {
         public int Id { get; set; }
 
@@ -20,14 +20,12 @@ namespace Movies_Rental.Models
         public DateTime DateAdded { get; set; }
 
         [Required]
-        [Range(1, 25, ErrorMessage ="Number in Stock must be between 1 and 25.")]
+        [Range(1, 20, ErrorMessage = "Number in Stock must be between 1 and 20.")]
         public short NumberInStock { get; set; }
 
         [Required]
         public int GenreId { get; set; }
 
-        public Genre Genre { get; set; }
-
-
+        public GenreDto Genre { get; set; }
     }
 }

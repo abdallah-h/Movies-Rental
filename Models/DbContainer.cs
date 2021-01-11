@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
+﻿using System.Data.Entity;
 
 namespace Movies_Rental.Models
 {
@@ -14,6 +10,8 @@ namespace Movies_Rental.Models
         }
         public DbSet<Movie> Movie { get; set; }
         public DbSet<Customer> Customer { get; set; }
+        public DbSet<Genre> Genre { get; set; }
+        public DbSet<MembershipType> MembershipType { get; set; }
 
     }
 }

@@ -1,0 +1,40 @@
+﻿@model Movies_Rental.ViewModels.MovieFormViewModel
+
+@{
+    ViewBag.Title = "New";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>New Movie</h2>
+
+@using (Html.BeginForm("Save", "Movies", FormMethod.Post, new { @class = "Form-Group" }))
+{
+    @Html.ValidationSummary(true, "Please fix the following errors.")
+    <div class="form-group">
+        @Html.LabelFor(n => n.Movie.Name, "Name")
+        @Html.TextBoxFor(n => n.Movie.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(n => n.Movie.Name)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(n => n.Movie.ReleaseDate, "Release Date")
+        @Html.TextBoxFor(n => n.Movie.ReleaseDate, "{0:d MMM yyyy}", new { @type = "date", @class = "form -control" })
+        @Html.ValidationMessageFor(n => n.Movie.ReleaseDate)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(n => n.Movie.GenreId, "Genre")
+        @Html.DropDownListFor(n => n.Movie.GenreId, new SelectList(Model.Genres, "Id", "Name"), "Choose Genre", new { @class = "form-control" })
+        @Html.ValidationMessageFor(n => n.Movie.GenreId)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(n => n.Movie.NumberInStock, "Number In Stock")
+        @Html.TextBoxFor(n => n.Movie.NumberInStock, new { @class = "form-control" })
+        @Html.ValidationMessageFor(n => n.Movie.NumberInStock)
+    </div>
+    if (Model.Movie != null)
+    {
+        @Html.HiddenFor(n => n.Movie);
+    }
+    @Html.AntiForgeryToken()
+    <input class="btn btn-primary" type="submit" value="Save" />
+}
+
